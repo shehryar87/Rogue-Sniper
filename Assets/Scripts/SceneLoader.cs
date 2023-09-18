@@ -22,10 +22,6 @@ public class SceneLoader : MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        LoadNextScene(Scenes.MainMenu);
-    }
     public GameObject loading;
     public Scenes currentScene;
     public Scenes lastScene;

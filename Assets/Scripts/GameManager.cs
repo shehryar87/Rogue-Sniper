@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance;
+    public static int levelRestartCount;
     private void Awake()
     {
         Instance = this;
@@ -52,12 +53,18 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         MainManager.Instance.IncreaseLevel();
+        AdmobManager.instance.ShowInterstitialAd();
         SceneLoader.instance.LoadNextScene(Scenes.Gameplay);
     }
     public void RestartLevel()
     {
+        levelRestartCount++;
+        if (levelRestartCount > 1)
+        {
+            levelRestartCount = 0;
+            AdmobManager.instance.ShowInterstitialAd();
+        }
         SceneLoader.instance.LoadNextScene(Scenes.Gameplay);
-
     }
 
 }

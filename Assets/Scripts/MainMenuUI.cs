@@ -13,13 +13,15 @@ public class MainMenuUI : MonoBehaviour
     #endregion
     private void Start()
     {
+        AdmobManager.instance.HideBanner(BannerAD.SmallBanner);
         AudioManager.instance.Play("Main");
+        
     }
     public GameObject mainMenu, levelSelection, gunSelection, settings;
     public void CampaignMode()
     {
-
         OpenPanel(Panel.LevelSelection);
+
     }
 
     public void EndlessMode()
@@ -36,6 +38,7 @@ public class MainMenuUI : MonoBehaviour
     {
         PlayerPrefs.SetInt("LevelNumber", level);
         OpenPanel(Panel.GunSelection);
+        AdmobManager.instance.ShowInterstitialAd();
     }
 
     public void SelecteGun(int gun)
@@ -69,18 +72,21 @@ public class MainMenuUI : MonoBehaviour
                 levelSelection.SetActive(false);
                 gunSelection.SetActive(false);
                 settings.SetActive(false);
+                AdmobManager.instance.HideBanner(BannerAD.SmallBanner);
                 break;
             case Panel.LevelSelection:
                 mainMenu.SetActive(false);
                 levelSelection.SetActive(true);
                 gunSelection.SetActive(false);
                 settings.SetActive(false);
+                AdmobManager.instance.ShowBanner(BannerAD.SmallBanner);
                 break;
             case Panel.GunSelection:
                 mainMenu.SetActive(false);
                 levelSelection.SetActive(false);
                 gunSelection.SetActive(true);
                 settings.SetActive(false);
+                AdmobManager.instance.ShowBanner(BannerAD.SmallBanner);
                 break;
             case Panel.Settings:
                 mainMenu.SetActive(false);
@@ -91,6 +97,10 @@ public class MainMenuUI : MonoBehaviour
             default:
                 break;
         }
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
 public enum Panel
